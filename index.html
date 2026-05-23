@@ -814,19 +814,40 @@
     @media (max-width: 768px) {
       nav { padding: 12px 20px; }
       .nav-links { display: none; }
+      .nav-left { gap: 0; }
       section { padding: 60px 20px; }
-      .hero { padding: 100px 20px 60px; }
+      .hero { padding: 100px 20px 80px; min-height: auto; }
+      .hero h1 { font-size: 40px; letter-spacing: -1.5px; }
+      .hero-sub { font-size: 16px; }
+      .hero-cta { flex-direction: column; }
+      .hero-cta .btn { width: 100%; text-align: center; }
       .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .stat-card { padding: 20px; }
+      .stat-number { font-size: 28px; }
       .portfolio-grid { grid-template-columns: 1fr; }
+      .portfolio-grid .portfolio-card { min-width: 0; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
       .tools-row { flex-direction: column; }
+      .tool-item { min-width: 0; }
       .scroll-indicator { display: none; }
       footer { flex-direction: column; gap: 16px; text-align: center; }
+      .contact-form { padding: 24px; }
+      .contact-links { gap: 10px; }
+      .contact-link { padding: 14px 16px; font-size: 14px; }
+      .section-title { font-size: 32px; }
     }
 
     @media (max-width: 480px) {
-      .hero h1 { letter-spacing: -1.5px; }
-      .stats-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 32px; letter-spacing: -1px; }
+      .hero-sub { font-size: 15px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .stat-card { padding: 16px; }
+      .stat-number { font-size: 24px; }
+      .section-title { font-size: 28px; }
+      .skill-card { padding: 24px; }
+      .service-card { padding: 24px; }
     }
   </style>
 </head>
@@ -1134,21 +1155,21 @@
         <div class="contact-info reveal">
           <p>Butuh video editor yang reliable? Hubungi aku — fast response, quality output, harga bersahabat.</p>
           <div class="contact-links">
-            <a href="https://instagram.com/zakiyaturrokhmah" class="contact-link" target="_blank">
+            <a href="https://instagram.com/zakiyatrr_" class="contact-link" target="_blank">
               <span class="icon">📷</span>
-              Instagram — @zakiyaturrokhmah
+              Instagram — @zakiyatrr_
             </a>
-            <a href="https://tiktok.com/@zakiyaturrokhmah" class="contact-link" target="_blank">
+            <a href="https://tiktok.com/@girljowo0" class="contact-link" target="_blank">
               <span class="icon">🎵</span>
-              TikTok — @zakiyaturrokhmah
+              TikTok — @girljowo0
             </a>
-            <a href="mailto:zakiyaturrokhmah@gmail.com" class="contact-link">
+            <a href="mailto:zakiyaturrohmah07@gmail.com" class="contact-link">
               <span class="icon">📧</span>
-              Email — zakiyaturrokhmah@gmail.com
+              Email — zakiyaturrohmah07@gmail.com
             </a>
-            <a href="https://wa.me/6281234567890" class="contact-link" target="_blank">
+            <a href="https://wa.me/6285290376771" class="contact-link" target="_blank">
               <span class="icon">💬</span>
-              WhatsApp — Chat Langsung
+              WhatsApp — +62 852-9037-6771
             </a>
           </div>
         </div>
