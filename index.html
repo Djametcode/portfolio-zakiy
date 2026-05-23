@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zakiyaturrokhmah — Video Editor & Creative</title>
+  <meta name="description" content="Portfolio Zakiyaturrokhmah — Video Editor & Creative specializing in CapCut, motion graphics, and social media content.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ═══ LIGHT THEME (DEFAULT) ═══ */
+    :root {
+      --bg: #ffffff;
+      --surface: #f8f8f8;
+      --surface2: #f0f0f0;
+      --border: #e5e5e5;
+      --text: #111111;
+      --text-muted: #666666;
+      --accent: #6c5ce7;
+      --accent-dim: rgba(108, 92, 231, 0.08);
+      --accent-hover: #5a4bd1;
+      --gradient-1: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+      --gradient-2: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+      --card-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      --card-shadow-hover: 0 12px 40px rgba(0,0,0,0.08);
+      --nav-bg: rgba(255, 255, 255, 0.85);
+      --play-fill: #ffffff;
+      --hero-badge-border: rgba(108, 92, 231, 0.2);
+    }
+
+    /* ═══ DARK THEME ═══ */
+    [data-theme="dark"] {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --surface2: #1a1a1a;
+      --border: #222222;
+      --text: #f0f0f0;
+      --text-muted: #888888;
+      --accent: #e8ff47;
+      --accent-dim: rgba(232, 255, 71, 0.1);
+      --accent-hover: #d4eb3a;
+      --gradient-1: linear-gradient(135deg, #e8ff47 0%, #7cff6b 100%);
+      --gradient-2: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+      --card-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      --card-shadow-hover: 0 20px 60px rgba(0,0,0,0.4);
+      --nav-bg: rgba(10, 10, 10, 0.85);
+      --play-fill: #0a0a0a;
+      --hero-badge-border: rgba(232, 255, 71, 0.2);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) var(--surface);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* ═══ NOISE TEXTURE ═══ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ═══ NAV ═══ */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    nav.hidden { transform: translateY(-100%); }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .logo {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ═══ THEME TOGGLE ═══ */
+    .theme-toggle {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent);
+      transform: scale(1.05);
+    }
+
+    .theme-toggle .icon-sun,
+    .theme-toggle .icon-moon { transition: opacity 0.3s ease; }
+
+    [data-theme="light"] .icon-moon { display: none; }
+    [data-theme="dark"] .icon-sun { display: none; }
+
+    /* ═══ HERO ═══ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 40px 80px;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-dim);
+      border: 1px solid var(--hero-badge-border);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      width: fit-content;
+      margin-bottom: 32px;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    .hero-badge .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero h1 {
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -3px;
+      margin-bottom: 24px;
+      animation: fadeInUp 0.6s ease 0.1s both;
+    }
+
+    .hero h1 .highlight {
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 20px;
+      color: var(--text-muted);
+      max-width: 560px;
+      line-height: 1.7;
+      animation: fadeInUp 0.6s ease 0.2s both;
+    }
+
+    .hero-sub strong { color: var(--text); font-weight: 600; }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      margin-top: 40px;
+      animation: fadeInUp 0.6s ease 0.3s both;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      border: none;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    [data-theme="dark"] .btn-primary { color: #0a0a0a; }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px var(--accent-dim);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--text-muted);
+      transform: translateY(-2px);
+    }
+
+    /* ═══ SCROLL INDICATOR ═══ */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      animation: fadeInUp 0.6s ease 0.5s both;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { height: 60px; }
+      50% { height: 40px; }
+    }
+
+    /* ═══ SECTIONS ═══ */
+    section {
+      padding: 100px 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-header { margin-bottom: 60px; }
+
+    .section-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+    }
+
+    /* ═══ ABOUT ═══ */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .about-text p strong { color: var(--text); }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.3s ease;
+      box-shadow: var(--card-shadow);
+    }
+
+    .stat-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .stat-number {
+      font-size: 36px;
+      font-weight: 800;
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ═══ SKILLS ═══ */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-1);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .skill-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .skill-card:hover::before { opacity: 1; }
+
+    .skill-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--accent-dim);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .skill-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .skill-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .skill-tag {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+    }
+
+    /* ═══ PORTFOLIO ═══ */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    .portfolio-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      box-shadow: var(--card-shadow);
+    }
+
+    .portfolio-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-6px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .portfolio-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--surface2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .portfolio-thumb .play-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.3s ease;
+    }
+
+    .portfolio-card:hover .play-icon {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .play-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--play-fill);
+      margin-left: 3px;
+    }
+
+    .thumb-gradient {
+      position: absolute;
+      inset: 0;
+    }
+
+    .portfolio-info { padding: 24px; }
+
+    .portfolio-info h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .portfolio-info p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .portfolio-meta {
+      display: flex;
+      gap: 12px;
+    }
+
+    .meta-pill {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+    }
+
+    /* ═══ TOOLS ═══ */
+    .tools-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .tool-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+      flex: 1;
+      min-width: 200px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .tool-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .tool-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--accent-dim);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .tool-name {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .tool-role {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ═══ SERVICES ═══ */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .service-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s ease;
+      position: relative;
+      box-shadow: var(--card-shadow);
+    }
+
+    .service-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .service-number {
+      font-size: 48px;
+      font-weight: 900;
+      color: var(--surface2);
+      margin-bottom: 16px;
+      line-height: 1;
+      transition: color 0.3s ease;
+    }
+
+    .service-card:hover .service-number {
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .service-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .service-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .service-price {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--accent);
+    }
+
+    /* ═══ CONTACT ═══ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .contact-info h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .contact-info p {
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.3s ease;
+      font-size: 15px;
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      transform: translateX(4px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .contact-link .icon {
+      width: 36px;
+      height: 36px;
+      background: var(--accent-dim);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .contact-form {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .form-group { margin-bottom: 20px; }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 15px;
+      font-family: inherit;
+      transition: border-color 0.3s ease;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--accent);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    [data-theme="dark"] .btn-submit { color: #0a0a0a; }
+
+    .btn-submit:hover {
+      box-shadow: 0 8px 30px var(--accent-dim);
+      transform: translateY(-2px);
+    }
+
+    /* ═══ FOOTER ═══ */
+    footer {
+      padding: 40px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ═══ ANIMATIONS ═══ */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 768px) {
+      nav { padding: 12px 20px; }
+      .nav-links { display: none; }
+      section { padding: 60px 20px; }
+      .hero { padding: 100px 20px 60px; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .tools-row { flex-direction: column; }
+      .scroll-indicator { display: none; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { letter-spacing: -1.5px; }
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-left">
+      <div class="logo">ZAKI<span>.</span></div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span class="icon-sun">☀️</span>
+      <span class="icon-moon">🌙</span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Available for freelance
+    </div>
+    <h1>
+      Zakiyaturrokhmah<br>
+      <span class="highlight">Video Editor</span>
+    </h1>
+    <p class="hero-sub">
+      <strong>Creative video editor</strong> specializing in short-form content, cinematic edits, and social media videos. Turning raw footage into <strong>scroll-stopping content</strong> with CapCut & creative storytelling.
+    </p>
+    <div class="hero-cta">
+      <a href="#portfolio" class="btn btn-primary">View Work</a>
+      <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+    </div>
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+      SCROLL
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div>
+        <div class="section-header reveal">
+          <div class="section-tag">// About</div>
+          <h2 class="section-title">Creative editor<br>with purpose.</h2>
+        </div>
+        <div class="about-text reveal">
+          <p>
+            Mahasiswa aktif <strong>Teknik Informatika</strong> di Universitas NU Al Ghazali Cilacap. Dengan passion di dunia video editing, aku fokus bikin konten visual yang engaging — dari短视频 pendek sampai cinematic reels.
+          </p>
+          <p>
+            Expertise utama di <strong>CapCut</strong> dengan pemahaman kuat soal motion graphics, color grading, sound design, dan storytelling visual. Setiap frame punya cerita, setiap cut punya alasan.
+          </p>
+        </div>
+      </div>
+      <div class="stats-grid reveal">
+        <div class="stat-card">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Video Edited</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">3+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Client Satisfaction</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">24h</div>
+          <div class="stat-label">Quick Turnaround</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-header reveal">
+      <div class="section-tag">// Skills</div>
+      <h2 class="section-title">What I do best.</h2>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-card">
+        <div class="skill-icon">✂️</div>
+        <h3>Video Editing</h3>
+        <p>Cutting, trimming, dan assembling footage jadi story yang cohesive. Pacing, rhythm, flow — semuanya diatur presisi.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">CapCut</span>
+          <span class="skill-tag">Premiere Pro</span>
+          <span class="skill-tag">DaVinci Resolve</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🎨</div>
+        <h3>Motion Graphics</h3>
+        <p>Animated text, transitions, dan visual effects yang bikin konten lebih dinamis dan eye-catching.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">After Effects</span>
+          <span class="skill-tag">CapCut Effects</span>
+          <span class="skill-tag">Keyframes</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🎵</div>
+        <h3>Sound Design</h3>
+        <p>Audio mixing, SFX placement, dan music sync yang bikin video punya depth dan emotion.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Audio Sync</span>
+          <span class="skill-tag">SFX</span>
+          <span class="skill-tag">Voice Over</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📱</div>
+        <h3>Social Media Content</h3>
+        <p>Konten optimized untuk TikTok, Instagram Reels, YouTube Shorts — format yang bikin orang stop scrolling.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">TikTok</span>
+          <span class="skill-tag">Reels</span>
+          <span class="skill-tag">Shorts</span>
+          <span class="skill-tag">Captions</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🎬</div>
+        <h3>Cinematic Editing</h3>
+        <p>Color grading, film look, cinematic transitions — bikin footage biasa jadi extraordinary.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Color Grade</span>
+          <span class="skill-tag">LUT</span>
+          <span class="skill-tag">Film Look</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">⚡</div>
+        <h3>CapCut Mastery</h3>
+        <p>Full feature CapCut — templates, effects, transitions, auto-captions, speed ramping, masking, dan advanced editing techniques.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Auto Captions</span>
+          <span class="skill-tag">Speed Ramp</span>
+          <span class="skill-tag">Masking</span>
+          <span class="skill-tag">Templates</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <div class="section-header reveal">
+      <div class="section-tag">// Portfolio</div>
+      <h2 class="section-title">Selected works.</h2>
+    </div>
+    <div class="portfolio-grid reveal">
+      <div class="portfolio-card">
+        <div class="portfolio-thumb">
+          <div class="thumb-gradient" style="background: linear-gradient(135deg, #ff4757 0%, #2d1b69 100%);"></div>
+          <div class="play-icon">
+            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <h3>TikTok Trending Edit</h3>
+          <p>Fast-paced viral edit with speed ramp transitions and sync beats.</p>
+          <div class="portfolio-meta">
+            <span class="meta-pill">CapCut</span>
+            <span class="meta-pill">TikTok</span>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-thumb">
+          <div class="thumb-gradient" style="background: linear-gradient(135deg, #6c5ce7 0%, #00cec9 100%);"></div>
+          <div class="play-icon">
+            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <h3>Cinematic Reels</h3>
+          <p>Cinematic travel footage with color grading and smooth transitions.</p>
+          <div class="portfolio-meta">
+            <span class="meta-pill">DaVinci</span>
+            <span class="meta-pill">Instagram</span>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-thumb">
+          <div class="thumb-gradient" style="background: linear-gradient(135deg, #00b894 0%, #0984e3 100%);"></div>
+          <div class="play-icon">
+            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <h3>Product Showcase</h3>
+          <p>Clean product video with motion graphics and text animations.</p>
+          <div class="portfolio-meta">
+            <span class="meta-pill">CapCut</span>
+            <span class="meta-pill">Commercial</span>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-thumb">
+          <div class="thumb-gradient" style="background: linear-gradient(135deg, #fd79a8 0%, #6c5ce7 100%);"></div>
+          <div class="play-icon">
+            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <h3>YouTube Shorts</h3>
+          <p>Engaging short-form content with captions and sound design.</p>
+          <div class="portfolio-meta">
+            <span class="meta-pill">CapCut</span>
+            <span class="meta-pill">YouTube</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section id="tools">
+    <div class="section-header reveal">
+      <div class="section-tag">// Tools</div>
+      <h2 class="section-title">Software I use.</h2>
+    </div>
+    <div class="tools-row reveal">
+      <div class="tool-item">
+        <div class="tool-icon">✂️</div>
+        <div>
+          <div class="tool-name">CapCut</div>
+          <div class="tool-role">Primary Editor</div>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-icon">🎬</div>
+        <div>
+          <div class="tool-name">DaVinci Resolve</div>
+          <div class="tool-role">Color Grading</div>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-icon">🎨</div>
+        <div>
+          <div class="tool-name">After Effects</div>
+          <div class="tool-role">Motion Graphics</div>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-icon">🎵</div>
+        <div>
+          <div class="tool-name">Audacity</div>
+          <div class="tool-role">Audio Editing</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-header reveal">
+      <div class="section-tag">// Services</div>
+      <h2 class="section-title">What I offer.</h2>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-number">01</div>
+        <h3>Social Media Video</h3>
+        <p>TikTok, Instagram Reels, YouTube Shorts — konten optimized untuk engagement dan viral potential.</p>
+        <div class="service-price">Mulai dari Rp 50K/video</div>
+      </div>
+      <div class="service-card">
+        <div class="service-number">02</div>
+        <h3>YouTube Editing</h3>
+        <p>Full YouTube video editing — cutting, color grading, thumbnail, sound design, dan caption.</p>
+        <div class="service-price">Mulai dari Rp 100K/video</div>
+      </div>
+      <div class="service-card">
+        <div class="service-number">03</div>
+        <h3>Motion Graphics</h3>
+        <p>Animated intro, lower thirds, text animation, dan custom motion graphics untuk brand.</p>
+        <div class="service-price">Mulai dari Rp 75K/element</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-grid">
+      <div>
+        <div class="section-header reveal">
+          <div class="section-tag">// Contact</div>
+          <h2 class="section-title">Let's work<br>together.</h2>
+        </div>
+        <div class="contact-info reveal">
+          <p>Butuh video editor yang reliable? Hubungi aku — fast response, quality output, harga bersahabat.</p>
+          <div class="contact-links">
+            <a href="https://instagram.com/zakiyaturrokhmah" class="contact-link" target="_blank">
+              <span class="icon">📷</span>
+              Instagram — @zakiyaturrokhmah
+            </a>
+            <a href="https://tiktok.com/@zakiyaturrokhmah" class="contact-link" target="_blank">
+              <span class="icon">🎵</span>
+              TikTok — @zakiyaturrokhmah
+            </a>
+            <a href="mailto:zakiyaturrokhmah@gmail.com" class="contact-link">
+              <span class="icon">📧</span>
+              Email — zakiyaturrokhmah@gmail.com
+            </a>
+            <a href="https://wa.me/6281234567890" class="contact-link" target="_blank">
+              <span class="icon">💬</span>
+              WhatsApp — Chat Langsung
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form reveal">
+        <form onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label>Nama</label>
+            <input type="text" placeholder="Nama kamu" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="email@domain.com" required>
+          </div>
+          <div class="form-group">
+            <label>Jenis Video</label>
+            <input type="text" placeholder="TikTok, YouTube, Reels, dll.">
+          </div>
+          <div class="form-group">
+            <label>Pesan</label>
+            <textarea placeholder="Ceritain project kamu..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Kirim Pesan →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>© 2026 Zakiyaturrokhmah. All rights reserved.</div>
+    <div>Built with passion <a href="#hero">↑ Back to top</a></div>
+  </footer>
+
+  <script>
+    // ═══ THEME TOGGLE ═══
+    const toggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+
+    // Load saved theme or default light
+    const saved = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', saved);
+
+    toggle.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+
+    // ═══ NAV HIDE ON SCROLL ═══
+    let lastScroll = 0;
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      const current = window.scrollY;
+      if (current > lastScroll && current > 100) {
+        nav.classList.add('hidden');
+      } else {
+        nav.classList.remove('hidden');
+      }
+      lastScroll = current;
+    });
+
+    // ═══ REVEAL ON SCROLL ═══
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ═══ FORM HANDLER ═══
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.btn-submit');
+      btn.textContent = '✓ Pesan Terkirim!';
+      btn.style.background = '#7cff6b';
+      btn.style.color = '#0a0a0a';
+      setTimeout(() => {
+        btn.textContent = 'Kirim Pesan →';
+        btn.style.background = '';
+        btn.style.color = '';
+        e.target.reset();
+      }, 2000);
+    }
+
+    // ═══ SMOOTH SCROLL ═══
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
